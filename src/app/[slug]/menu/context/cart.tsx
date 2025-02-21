@@ -32,7 +32,25 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   }
 
   const addProduct = (product: CartProduct) => {
-    setProducts((prev) => [...prev, product])
+    const existingProduct = products.some(
+      (products) => products.id === product.id,
+    )
+    if (!existingProduct) {
+      return setProducts((prev) => [...prev, product])
+    }
+
+    // If the product already exists in the cart, we should update the quantity of the product instead of adding a new one to the cart.
+    setProducts((prev) => {
+      return prev.map((prevProduct) => {
+        if (prevProduct.id === product.id) {
+          return {
+            ...prevProduct,
+            quantity: prevProduct.quantity + product.quantity,
+          }
+        }
+        return prevProduct
+      })
+    })
   }
 
   return (

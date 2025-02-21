@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/sheet"
 import { useContext } from "react"
 import { CartContext } from "../context/cart"
+import { formatCurrency } from "../../../../helpers/format-currency"
 
 const CartSheet = () => {
   const { isOpen, toggleCart, products } = useContext(CartContext)
@@ -16,14 +17,12 @@ const CartSheet = () => {
       <SheetContent>
         <SheetHeader>
           <SheetTitle></SheetTitle>
-          <SheetDescription>
-            
-          </SheetDescription>
+          <SheetDescription></SheetDescription>
         </SheetHeader>
         {products.map((product) => (
           <div key={product.id}>
             <p>{product.name}</p>
-            <p>{product.price}</p>
+            <p>{formatCurrency(product.price * product.quantity)}</p>
             <p>{product.quantity}</p>
           </div>
         ))}
