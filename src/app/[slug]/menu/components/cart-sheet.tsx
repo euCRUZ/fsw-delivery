@@ -28,11 +28,11 @@ const CartSheet = () => {
               <CartProductItem key={product.id} product={product} />
             ))}
           </div>
-          <Card>
-            <CardContent>
+          <Card className="mb-6">
+            <CardContent className="p-5">
               <div className="flex justify-between">
-                <p>Subtotal</p>
-                <p>{formatCurrency(total)}</p>
+                <p className="text-sm text-muted-foreground">Total</p>
+                <p className="font-semibold text-sm">{formatCurrency(total)}</p>
               </div>
             </CardContent>
           </Card>
