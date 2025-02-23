@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { formatCurrency } from "@/helpers/format-currency"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { useParams, useRouter, useSearchParams } from "next/navigation"
 import { on } from "events"
 
 interface OrderListProps {
@@ -38,8 +38,13 @@ const getStatusLabel = (status: OrderStatus) => {
 }
 
 const OrderList = ({ orders }: OrderListProps) => {
+  const { slug } = useParams<{ slug: string }>()
+
+  // const searchParams = useSearchParams()
+
   const router = useRouter()
   const handleBackClick = () => router.back()
+
   return (
     <div className="space-y-6 p-6">
       <Button
