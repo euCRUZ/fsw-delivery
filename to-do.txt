@@ -1,0 +1,1 @@
+- Aumentar espaçamento vertical entre os itens da sacola
