@@ -2,3 +2,4 @@
 - CardSumarry fica em cima dos itens do menu;
 - A sacola me permite criar um pedido de 0 reais;
 - Estilizar a rota "/"
+- "Adicionar à sacola", no produto, fica sobrepondo aos ingredientes e a sua área Scroll
