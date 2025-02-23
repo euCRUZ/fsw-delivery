@@ -4,7 +4,7 @@ import RestauratHeader from "./components/header"
 import RestaurantCategories from "./components/categories"
 
 interface RestaurantMenuPageProps {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
   searchParams: Promise<{ consumptionMethod: string }>
 }
 

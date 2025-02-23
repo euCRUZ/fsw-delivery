@@ -1,1 +1,4 @@
-- Aumentar espaçamento vertical entre os itens da sacola
+- Aumentar espaçamento vertical entre os itens da sacola;
+- CardSumarry fica em cima dos itens do menu;
+- A sacola me permite criar um pedido de 0 reais;
+- Estilizar a rota "/"
