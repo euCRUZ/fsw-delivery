@@ -53,7 +53,7 @@ const OrderList = ({ orders }: OrderListProps) => {
               {getStatusLabel(order.status)}
             </div>
             <div className="flex items-center gap-2">
-              <div className="relative h-5 w-5">
+              <div className="relative h-6 w-6">
                 <Image
                   src={order.restaurant.avatarImageUrl}
                   alt={order.restaurant.name}
@@ -61,7 +61,12 @@ const OrderList = ({ orders }: OrderListProps) => {
                   fill
                 />
               </div>
-              <p className="text-sm font-semibold">{order.restaurant.name}</p>
+              <div>
+                <p className="text-sm font-semibold">{order.restaurant.name}</p>
+                <p className="text-[0.7rem] font-semibold">
+                  {order.createdAt.toLocaleString()}
+                </p>
+              </div>
             </div>
             <Separator />
             <div className="space-y-2">
