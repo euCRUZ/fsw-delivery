@@ -63,7 +63,7 @@ const OrderList = ({ orders }: OrderListProps) => {
               </div>
               <div>
                 <p className="text-sm font-semibold">{order.restaurant.name}</p>
-                <p className="text-[0.7rem] font-semibold">
+                <p className="text-[0.7rem] font-semibold text-gray-400">
                   {order.createdAt.toLocaleString()}
                 </p>
               </div>
