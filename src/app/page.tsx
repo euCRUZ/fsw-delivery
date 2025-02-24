@@ -20,7 +20,7 @@ const HomePage = async () => {
         <Card className="flex w-full max-w-4xl flex-col shadow-lg">
           <div className="p-6 pb-0">
             <h1 className="mb-2 text-center text-3xl font-bold text-primary">
-              Bem-vindo ao FWS Delivery!
+              Bem-vindo ao FSW Delivery!
             </h1>
             <p className="mb-6 text-center text-muted-foreground">
               Escolha o restaurante que você quer fazer seu pedido:
