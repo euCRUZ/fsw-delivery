@@ -14,7 +14,7 @@ const CartProductItem = ({ product }: CartItemProps) => {
     useContext(CartContext)
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="my-4 flex items-center justify-between">
       {/* LEFT */}
       <div className="flex items-center gap-3">
         <div className="relative h-20 w-20 rounded-xl bg-gray-100">
@@ -22,7 +22,7 @@ const CartProductItem = ({ product }: CartItemProps) => {
             src={product.imageUrl}
             alt={product.name}
             fill
-            className="p-1"
+            className="p-2"
           />
         </div>
 
@@ -59,7 +59,7 @@ const CartProductItem = ({ product }: CartItemProps) => {
       </div>
 
       <Button
-        className="h-7 w-7 rounded-lg"
+        className="me-4 h-7 w-7 rounded-lg"
         variant="outline"
         onClick={() => removeProduct(product.id)}
       >

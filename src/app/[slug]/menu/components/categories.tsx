@@ -76,6 +76,7 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
       </ScrollArea>
 
       <h3 className="px-5 pt-8 font-semibold">{selectedCategory.name}</h3>
+
       <Products products={selectedCategory.products} />
 
       {products.length > 0 && (

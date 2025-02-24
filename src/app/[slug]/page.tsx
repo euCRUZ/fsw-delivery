@@ -1,10 +1,27 @@
-import { getRestaurantBySlug } from "@/data/get-restaurant-by-slug"
+import { getRestaurantBySlug } from "@/data/get-restaurant"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import ConsumptionMethodOption from "./components/consumptio-method-option"
+import { Metadata } from "next"
 
 interface RestaurantPageProps {
   params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({
+  params,
+}: RestaurantPageProps): Promise<Metadata> {
+  const { slug } = await params
+  const restaurant = await getRestaurantBySlug(slug)
+  if (!restaurant) {
+    return {
+      title: "Restaurant Not Found",
+    }
+  }
+  return {
+    title: restaurant.name,
+    description: restaurant.description,
+  }
 }
 
 const RestaurantPage = async ({ params }: RestaurantPageProps) => {
@@ -29,7 +46,7 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
       </div>
 
       {/* WELCOME */}
-      <div className="space-y-2 pt-24 text-center">
+      <div className="space-y-2 pt-14 text-center">
         <h3 className="text 2xl: font-semibold">Seja bem-vindo!</h3>
         <p className="opacity-55">
           Escolha como prefere aproveitar sua refeição. Estamos aqui para
@@ -38,7 +55,7 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
       </div>
 
       {/* CONSUMPTION METHOD */}
-      <div className="grid grid-cols-2 gap-4 pt-14">
+      <div className="grid grid-cols-2 gap-4 pt-10">
         <ConsumptionMethodOption
           imageUrl="/dine_in.png"
           imageAlt="Para comer aqui"
@@ -53,6 +70,24 @@ const RestaurantPage = async ({ params }: RestaurantPageProps) => {
           option="TAKEAWAY"
           slug={slug}
         />
+      </div>
+
+      <div className="mt-9 p-4 text-center text-muted-foreground">
+        <p>
+          Made with{" "}
+          <span role="img" aria-label="Coração">
+            ❤️
+          </span>{" "}
+          by{" "}
+          <a
+            href="https://crzweb.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary"
+          >
+            CRZ
+          </a>
+        </p>
       </div>
     </div>
   )

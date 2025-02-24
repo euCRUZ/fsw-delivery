@@ -11,3 +11,14 @@ export const getRestaurantBySlug = async (slug: string) => {
   })
   return restaurant
 }
+
+export const getAllRestaurants = async () => {
+  const restaurants = await db.restaurant.findMany({
+    include: {
+      menuCategory: {
+        include: { products: true },
+      },
+    },
+  })
+  return restaurants
+}

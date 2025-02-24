@@ -1,5 +1,5 @@
 import { formatCurrency } from "@/helpers/format-currency"
-import { Product, ConsumptionMethod } from "@prisma/client"
+import { Product } from "@prisma/client"
 import Image from "next/image"
 import Link from "next/link"
 import { useParams, useSearchParams } from "next/navigation"
@@ -13,7 +13,7 @@ const Products = ({ products }: ProductsProps) => {
   const searchParams = useSearchParams()
   const consumptionMethod = searchParams.get("consumptionMethod")
   return (
-    <div className="space-y-3 px-5">
+    <div className="space-y-3 overflow-auto px-5 pb-20">
       {products.map((product) => (
         <Link
           key={product.id}

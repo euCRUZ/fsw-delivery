@@ -1,4 +1,4 @@
-import { getRestaurantBySlug } from "@/data/get-restaurant-by-slug"
+import { getRestaurantBySlug } from "@/data/get-restaurant"
 import { notFound } from "next/navigation"
 import RestauratHeader from "./components/header"
 import RestaurantCategories from "./components/categories"
