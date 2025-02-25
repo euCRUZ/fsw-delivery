@@ -6,10 +6,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { hostname: "u9a6wmr3as.ufs.sh" },
       { hostname: "wallpapers.com" },
+      { hostname: "shuttledelivery.co.kr" },
+      { hostname: "www.shuttledelivery.co.kr" }, // Adicionando o hostname correto
+      { hostname: "media.bizj.us" },
+      { hostname: "cdn.sanity.io" },
     ], // Add the hostname of the image server to make it a valid source
   },
 }
 
 export default nextConfig
-
-// https://wallpapers.com/images/hd/aesthetic-mcdonald-s-store-7r2ldise5y3ixv9g.jpg

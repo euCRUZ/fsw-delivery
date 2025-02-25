@@ -5,7 +5,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Prisma } from "@prisma/client"
 import { ClockIcon } from "lucide-react"
 import Image from "next/image"
-import { useContext, useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import Products from "./products"
 import { CartContext } from "../context/cart"
 import { formatCurrency } from "@/helpers/format-currency"
@@ -24,8 +24,47 @@ type MenuCategoriesWithProducts = Prisma.MenuCategoryGetPayload<{
 const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
   const { products, total, totalQuantity, toggleCart } = useContext(CartContext)
 
+  const [isOpen, setIsOpen] = useState(true)
+  const [nextOpeningTime, setNextOpeningTime] = useState("")
+  const [timeUntilClose, setTimeUntilClose] = useState("")
   const [selectedCategory, setSelectedCategory] =
     useState<MenuCategoriesWithProducts>(restaurant.menuCategory[0])
+
+  useEffect(() => {
+    const checkOpeningHours = () => {
+      const now = new Date()
+      const currentHour = now.getHours()
+      const currentMinute = now.getMinutes()
+
+      const isClosed =
+        currentHour > 23 ||
+        (currentHour === 23 && currentMinute >= 30) ||
+        currentHour < 11 ||
+        (currentHour === 11 && currentMinute < 30)
+
+      setIsOpen(!isClosed)
+
+      if (isClosed) {
+        if (currentHour > 23 || (currentHour === 23 && currentMinute >= 30)) {
+          setNextOpeningTime("11:00")
+        } else {
+          setNextOpeningTime("23:30")
+        }
+      } else {
+        const closingTime = new Date()
+        closingTime.setHours(23, 30, 0, 0)
+        const timeDiff = closingTime.getTime() - now.getTime()
+        const hours = Math.floor(timeDiff / (1000 * 60 * 60))
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60))
+        setTimeUntilClose(`${hours}h${minutes}m`)
+      }
+    }
+
+    checkOpeningHours()
+    const interval = setInterval(checkOpeningHours, 60000) // Check every minute
+
+    return () => clearInterval(interval)
+  }, [])
 
   const handleCategoryClick = (category: MenuCategoriesWithProducts) => {
     setSelectedCategory(category)
@@ -51,9 +90,15 @@ const RestaurantCategories = ({ restaurant }: RestaurantCategoriesProps) => {
           </div>
         </div>
 
-        <div className="mt-3 flex items-center gap-1 text-xs text-green-500">
+        <div
+          className={`mt-3 flex items-center gap-1 text-xs ${isOpen ? "text-green-600" : "text-red-600"}`}
+        >
           <ClockIcon size={12} />
-          <p>Aberto</p>
+          <p>
+            {isOpen
+              ? `Aberto - Fecha em ${timeUntilClose}`
+              : `Fechado - Abre às ${nextOpeningTime}`}
+          </p>
         </div>
       </div>
 

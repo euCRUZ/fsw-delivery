@@ -7,6 +7,7 @@ const prismaClient = new PrismaClient()
 const main = async () => {
   await prismaClient.$transaction(async (tx: any) => {
     await tx.restaurant.deleteMany()
+
     const restaurant = await tx.restaurant.create({
       data: {
         name: "FSW Donalds",
@@ -307,6 +308,92 @@ const main = async () => {
             "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQ4rBrtULypXmR6JiWuhzS8ALjVkrF3yfatC7E",
           menuCategoryId: desertsCategory.id,
           restaurantId: restaurant.id,
+        },
+      ],
+    })
+
+    // Criação do segundo restaurante
+    const secondRestaurant = await tx.restaurant.create({
+      data: {
+        name: "FSW Fried Chicken",
+        slug: "fsw-fried-chicken",
+        description: "O melhor frango frito do mundo",
+        avatarImageUrl:
+          "https://www.shuttledelivery.co.kr/uploads/popeyes_logo_ed8b30b7ed1a51c1c68c0080049d45e91736229553.jpg",
+        coverImageUrl:
+          "https://media.bizj.us/view/img/3602231/popeyesrestaurantphoto*1200xx4911-2768-278-385.jpg",
+      },
+    })
+
+    const friedChickenCategory = await tx.menuCategory.create({
+      data: {
+        name: "Frango Frito",
+        restaurantId: secondRestaurant.id,
+      },
+    })
+
+    await tx.product.createMany({
+      data: [
+        {
+          name: "Frango Frito Clássico",
+          description: "Frango frito crocante e suculento.",
+          price: 29.9,
+          imageUrl:
+            "https://cdn.sanity.io/images/czqk28jt/prod_plk_us/04a7acdad7417680ecabcd5479330f336bf80c3b-2000x1333.png?w=432&q=80&fit=max&auto=format",
+          menuCategoryId: friedChickenCategory.id,
+          restaurantId: secondRestaurant.id,
+          ingredients: ["Frango", "Farinha", "Óleo", "Tempero especial"],
+        },
+        {
+          name: "Frango Frito Picante",
+          description: "Frango frito crocante com um toque picante.",
+          price: 34.9,
+          imageUrl:
+            "https://cdn.sanity.io/images/czqk28jt/prod_plk_us/5d529fecf02ba33fbbc082ddb3e4528f5b614cc0-2000x1333.png?q=80&auto=format",
+          menuCategoryId: friedChickenCategory.id,
+          restaurantId: secondRestaurant.id,
+          ingredients: ["Frango", "Farinha", "Óleo", "Tempero picante"],
+        },
+      ],
+    })
+
+    const drinksCategory2 = await tx.menuCategory.create({
+      data: {
+        name: "Bebidas",
+        restaurantId: secondRestaurant.id,
+      },
+    })
+    await tx.product.createMany({
+      data: [
+        {
+          name: "Coca-cola",
+          description: "Coca-cola gelada para acompanhar seu frango.",
+          ingredients: [],
+          price: 5.9,
+          imageUrl:
+            "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQJS1b33q29eEsh0CVmOywrqx1UPnJpRGcHN5v",
+          menuCategoryId: drinksCategory2.id,
+          restaurantId: secondRestaurant.id,
+        },
+        {
+          name: "Fanta Laranja",
+          description: "Fanta Laranja gelada para acompanhar seu frango.",
+          ingredients: [],
+          price: 5.9,
+          imageUrl:
+            "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQW7Kxm9gniS9XCLQu7Nb4jvBYZze16goaOqsK",
+          menuCategoryId: drinksCategory2.id,
+          restaurantId: secondRestaurant.id,
+        },
+        {
+          name: "Água Mineral",
+          description: "A bebida favorita do Ramon Dino.",
+          ingredients: [],
+          price: 2.9,
+          imageUrl:
+            "https://u9a6wmr3as.ufs.sh/f/jppBrbk0cChQ7i05S5tkc0L9oMIXZsFJtwnBh2KCz3y6uSW1",
+          menuCategoryId: drinksCategory2.id,
+          restaurantId: secondRestaurant.id,
         },
       ],
     })
